@@ -30,11 +30,9 @@ def add_expense(expense_type, expense_amount):
         expense_number = expense_data[-1][0] + 1
     
     expense_data.append([expense_number, expense_type, expense_amount, timestamp])
-    with open(file_name, "a") as expenses:
+    with open(file_name, "a", newline='') as expenses:
         writer = csv.writer(expenses)
         writer.writerow(expense_data[-1])
-        for expense in expense_data:
-            print(expense)
 
 def update_expense(expense_type):
     found = False
@@ -55,15 +53,35 @@ def update_expense(expense_type):
         print("expense type not found")
         return
     
-    with open(file_name, 'w') as expenses:
+    with open(file_name, 'w', newline='') as expenses:
         writer = csv.writer(expenses)
         writer.writerows(rows)
 
+def delete_expense(expense_type):
+    expense_deleted = False
+    with open(file_name, 'r', newline='') as expenses:
+        reader = csv.reader(expenses)
+        rows = list(reader)
+    
+    new_rows = []
+    for row in rows:
+        if expense_deleted is True:
+            expense_number = int(row[0])
+            expense_number -= 1
+            row[0] = str(expense_number)
+        
+        if row[1] == expense_type and not expense_deleted:
+            expense_deleted = True
+        else:
+            new_rows.append(row)
+    
+    with open(file_name, 'w', newline='') as expenses:
+        writer = csv.writer(expenses)
+        writer.writerows(new_rows)
 
-
-
-
-
+add_expense("dog food", 200)
+add_expense("rent", 1500)
+delete_expense("dog food")
 
 
         
