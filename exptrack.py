@@ -1,11 +1,9 @@
 import argparse
+import sys
 import os
 import csv
 import datetime
 
-expense_data = [
-    ["Expense Number", "Expense Type", "Expense Amount", "Date and Time"]
-]
 
 file_path = "C:\\Users\\Shalom Arbsie\\projects\\personal\\Expense-Tracker\\expenses.csv"
 file_name = "expenses.csv"
@@ -13,26 +11,39 @@ current_datetime = datetime.datetime.now()
 timestamp = current_datetime.strftime("%Y-%m-%d %H:%M:%S")
 
 if not os.path.exists(file_path):
+    expense_headline = [
+        ["Expense Number", "Expense Type", "Expense Amount", "Date and Time"]
+    ]   
     with open(file_name, "w", newline='') as expenses:
         writer = csv.writer(expenses)
-        writer.writerows(expense_data)
+        writer.writerows(expense_headline)
         
 def add_expense(expense_type, expense_amount):
-    for expense in expense_data:
-        if expense[1] == expense_type:
-            choice = input("expense already exists, do you wish to add expense again?(y/n)")
-            if choice == "n" or choice == "N":
-                return
+    with open(file_name, 'r', newline='') as expenses:
+        reader = csv.reader(expenses)
+        rows = list(reader)
     
-    if not isinstance(expense_data[-1][0], int):
+    repeat_checker = False
+    for row in rows:
+        if row[1] == expense_type and not repeat_checker:
+            choice = input(f"expense /{expense_type}/ already exists, do you wish to add expense again?(y/n)")
+            if choice == "n" or choice == "N":
+                sys.exit()
+            elif choice == "y" or choice == "Y":
+               repeat_checker = True
+               break
+
+    if rows[-1][0] == "Expense Number":
         expense_number = 1
     else:
-        expense_number = expense_data[-1][0] + 1
-    
-    expense_data.append([expense_number, expense_type, expense_amount, timestamp])
+        buffer = int(rows[-1][0])
+        expense_number = buffer + 1
+        rows[-1][0] = str(expense_number)
+
+    rows.append([expense_number, expense_type, expense_amount, timestamp])
     with open(file_name, "a", newline='') as expenses:
         writer = csv.writer(expenses)
-        writer.writerow(expense_data[-1])
+        writer.writerow(rows[-1])
 
 def update_expense(expense_type):
     found = False
@@ -79,6 +90,28 @@ def delete_expense(expense_type):
         writer = csv.writer(expenses)
         writer.writerows(new_rows)
 
+def view_expenses():
+    with open(file_name, 'r') as expenses:
+        reader = csv.reader(expenses)
+        rows = list(reader)
+    
+    for row in rows:
+        print(row)
 
+def summarize_expenses():
+    total_expenses = 0
+    with open(file_name, 'r') as expenses:
+        reader = csv.reader(expenses)
+        rows = list(reader)
 
-        
+    for row in rows:
+        if row[2] != 'Expense Amount':
+            expense_amount = int(row[2])
+            total_expenses += expense_amount
+    
+    print(f"total expenses: {total_expenses}")
+
+add_expense('dog food', 200)
+add_expense('rent', 1500)
+add_expense('groceries', 700)
+summarize_expenses()
