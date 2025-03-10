@@ -79,9 +79,6 @@ def delete_expense(expense_type):
         writer = csv.writer(expenses)
         writer.writerows(new_rows)
 
-add_expense("dog food", 200)
-add_expense("rent", 1500)
-delete_expense("dog food")
 
 
         
