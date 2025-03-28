@@ -14,6 +14,7 @@
 configuration file(txt file):
 
 file_name=expenses.csv
+
 file_path=C\\path\\to\\the\\directory\\you're\\running\\this\\program\\in\\expenses.csv (remember to apply file paths in according with your OS system)
 category_name=categories.txt
 currency=USD
