@@ -43,4 +43,4 @@ entertainment
 
 - instructions to run:to run this, download main.py and supportmodule.py into a directory/file location of your choice(make sure to remember the file location) and run in your choice of commandline or IDE
 - this program runs on command line arguments which have specifications in the main.py file
-- project page URL: https://github.com/shalomarbsie/Expense-Tracker
+- project page URL: https://roadmap.sh/projects/github-user-activity
