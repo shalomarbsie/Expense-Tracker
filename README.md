@@ -11,7 +11,7 @@
  
 - Known issues: setting up your expense file, configuration file, categories files, etc. multiple times can lead to errors in processing them by the code, here is their general format:
 
-configuration file(txt file):
+1. configuration file(txt file):
 
 file_name=expenses.csv
 
@@ -23,7 +23,7 @@ currency=USD
 
 leftover_budget=5000 (leftover_budget=NULL if you haven't set a budget yet)
 
-expenses file(csv file):
+2. expenses file(csv file):
 
 ID,Expense Type, Expense Amount,Date and Time, Category
 
@@ -31,7 +31,7 @@ ID,Expense Type, Expense Amount,Date and Time, Category
 
 ...
 
-categories file(txt.file):
+3. categories file(txt.file):
 
 home
 
