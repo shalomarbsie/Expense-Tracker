@@ -20,11 +20,13 @@ currency=USD
 leftover_budget=5000 (leftover_budget=NULL if you haven't set a budget yet)
 
 expenses file(csv file):
+
 ID,Expense Type, Expense Amount,Date and Time, Category
 1,rent,1500.0,2025-03-28 16:20:46,home
 ...
 
 categories file(txt.file):
+
 home
 food
 entertainment
